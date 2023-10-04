@@ -5,21 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Search photo</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      crossorigin="anonymous"
+    />
+
     <script defer type="module" src="index.js"></script>
   </head>
 
   <body>
+    <div>
+      <h1>Image search</h1>
+      <h6>Using the pixabay API</h6>
+    </div>
+
     <div class="search-container">
       <input type="text" class="searchInput" placeholder="Search photo..." />
-      <button class="searchBtn">Search</button>
+      <button class="searchBtn btn">
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </button>
+
+      <button class="favoriteBtn btn">Favorites images</button>
     </div>
+    <br />
+
+    <div class="favorites-container"></div>
+
     <div class="imageContainer"></div>
     <div class="modal hidden">
       <button class="close-modal">&times;</button>
       <p class="modalContent"></p>
     </div>
     <div class="overlay hidden"></div>
-    <button class="more-images-btn hidden">More Images</button>
+    <button class="more-images-btn hidden btn">More Images</button>
     <p class="endData"></p>
   </body>
 </html>
