@@ -1,11 +1,18 @@
-export const getSearchData = async (query, currentPage, perPage) => {
+export const getSearchData = async (
+  query,
+  currentPage,
+  perPage,
+  selectedTag
+) => {
   const API_KEY = '38179415-ae32d6643ecbce8d3a8bcb459';
   const URL = `https://pixabay.com/api/?key=${API_KEY}&q=${encodeURIComponent(
     query
   )}&page=${currentPage}&per_page=${perPage}&image_type=photo`;
+  const urlByCategury = URL + `&category=${encodeURIComponent(selectedTag)}`;
+
   // need to handle 400 err- dosent work
   try {
-    const response = await fetch(URL);
+    const response = await fetch(!selectedTag ? URL : urlByCategury);
     if (response.status === 200) {
       const data = await response.json();
       if (data.hits && data.hits.length > 0) {

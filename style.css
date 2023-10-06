@@ -36,6 +36,11 @@ p {
   margin-bottom: 20px;
 }
 
+.tagSelect {
+  padding: 10px;
+  border: 1px solid #333;
+  border-radius: 5px;
+}
 .searchInput {
   padding: 10px;
   width: 60%;

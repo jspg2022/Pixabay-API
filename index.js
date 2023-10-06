@@ -11,12 +11,49 @@ const favoriteContainer = document.querySelector('.favorites-container');
 const moreImagesBtn = document.querySelector('.more-images-btn');
 const endData = document.querySelector('.endData');
 const favoriteBtn = document.querySelector('.favoriteBtn');
+const tagSelect = document.querySelector('.tagSelect');
 
 const favoritesArr = [];
 const perPage = 20;
 let currentPage;
 let searchInputVal;
+
+let selectedTag = '';
+const predefinedTags = [
+  'backgrounds',
+  'fashion',
+  'nature',
+  'science',
+  'education',
+  'feelings',
+  'health',
+  'people',
+  'religion',
+  'places',
+  'animals',
+  'industry',
+  'computer',
+  'food',
+  'sports',
+  'transportation',
+  'travel',
+  'buildings',
+  'business',
+  'music',
+];
 // let calculateTotalPages; // need to add for more images function-To prevent an unnecessary request?? // by divide yotal with perpage
+
+const createTags = () => {
+  predefinedTags.map((tag) => {
+    const option = document.createElement('option');
+    option.value = tag;
+    option.textContent = tag;
+
+    tagSelect.appendChild(option);
+  });
+};
+
+createTags();
 
 const handleSearchClick = async () => {
   imageContainer.innerHTML = '';
@@ -24,7 +61,12 @@ const handleSearchClick = async () => {
   currentPage = 1;
 
   if (searchInputVal.length > 0) {
-    const data = await getSearchData(searchInputVal, currentPage, perPage);
+    const data = await getSearchData(
+      searchInputVal,
+      currentPage,
+      perPage,
+      selectedTag
+    );
     if (data?.length > 0) {
       displayCards(data, imageContainer);
       moreImagesBtn.classList.remove('hidden');
@@ -87,6 +129,7 @@ const createFavoriteIcon = (imageData) => {
 };
 
 const handleFavoriteIcon = (imageData, favoriteIcon) => {
+  // need to add "no photos to add when i remove image from icon"
   console.log(1);
   const index = favoritesArr.findIndex((img) => img.id === imageData.id);
   if (index === -1) {
@@ -169,3 +212,8 @@ closeModal.addEventListener('click', handleCloseModal);
 overlay.addEventListener('click', handleCloseModal);
 moreImagesBtn.addEventListener('click', handleMoreImages);
 favoriteBtn.addEventListener('click', handleFavoritesBtn);
+tagSelect.addEventListener('change', () => {
+  console.log(selectedTag);
+  selectedTag = tagSelect.value; // Update the selectedTag variable
+  console.log(selectedTag);
+});
