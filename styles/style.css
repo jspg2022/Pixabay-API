@@ -125,7 +125,7 @@ p {
   border: none;
 }
 
-.favorites-container {
+#favorites-container {
   display: none;
   border: 2px solid #007bff; /* Add a blue border to the container */
   border-radius: 5px;
