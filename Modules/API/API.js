@@ -1,4 +1,5 @@
-import Constants from './Constants.js'
+import Constants from '../Constants.js'
+import Photo from './Photo.js';
 
 const API = {
   async searchPhotos({ query, tag, currentPage, itemsPerPage }) {
@@ -11,7 +12,15 @@ const API = {
       if (response.status === 200) {
         const data = await response.json();
         if (data.hits && data.hits.length > 0) {
-          return data.hits;
+          const photos = data.hits.map((pixabayPhoto) => {
+            return new Photo({
+              id: pixabayPhoto.id,
+              previewURL: pixabayPhoto.previewURL,
+              photoURL: pixabayPhoto.largeImageURL,
+              tags: pixabayPhoto.tags
+            });
+          });
+          return photos;
         } else {
           console.error(`API Error: Status ${response.status}`);
         }
