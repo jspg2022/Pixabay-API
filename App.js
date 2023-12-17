@@ -17,11 +17,14 @@ const App = {
     query: '',
     selectedTag: '',
     searchResults: [],
+    isShowingLoadMoreButton: false
   },
 
   selectors: {
     app: () => { return document.getElementById('app') },
-    photosSection: () => { return document.getElementById('photos-section'); }
+    searchBar: () => { return document.getElementById('search-bar-section'); },
+    photosSection: () => { return document.getElementById('photos-section'); },
+    loadMoreContainer: () => { return document.getElementById('load-more-container'); }
   },
 
   // Initializing the app
@@ -80,9 +83,12 @@ const App = {
   // App methods/functions
 
   async searchAction({ query, tag, currentPage, itemsPerPage }) {
-    // Reset search results first
-    this.state.searchResults = [];
-    this.selectors.photosSection().innerHTML = ``;
+    if (this.state.query != query || this.state.selectedTag != tag) {
+      // This is a new search
+      this.state.query = query;
+      this.state.selectedTag = tag;
+      this.resetSearchResults();
+    }
 
     const searchResults = await API.searchPhotos({
       query,
@@ -98,6 +104,7 @@ const App = {
     }
 
     this.state.searchResults = searchResults;
+    this.state.currentPage += 1;
 
     this.updateSearchResultsUI();
   },
@@ -109,6 +116,41 @@ const App = {
       let photoCard = PhotoCard(photoObject);
       photosSection.innerHTML += photoCard;
     });
+
+    if (this.state.searchResults.length > 0) {
+      this.generateLoadMoreButtonIfNeeded();
+    }
+  },
+
+  resetSearchResults() {
+    this.state.searchResults = [];
+    this.state.currentPage = 1;
+    this.selectors.photosSection().innerHTML = ``;
+  },
+
+  generateLoadMoreButtonIfNeeded() {
+    // NOTE: There's a bug - when adding the load more button to the Search Bar section,
+    // the search button loses its event listener.
+    // We should solve this issue later.
+
+    if (this.state.isShowingLoadMoreButton) { return; }
+
+    const container = this.selectors.loadMoreContainer()
+    container.innerHTML += `<button id="load-more-button" class="btn">Load More Photos</button>`;
+
+    const loadMoreButton = document.getElementById('load-more-button');
+    loadMoreButton?.addEventListener('click', (event) => {
+      event.preventDefault();
+
+      this.searchAction({
+        query: this.state.query,
+        tag: this.state.selectedTag,
+        currentPage: this.state.currentPage,
+        itemsPerPage: this.state.itemsPerPage
+      });
+    });
+
+    this.state.isShowingLoadMoreButton = true;
   }
 };
 
