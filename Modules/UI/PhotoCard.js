@@ -1,7 +1,12 @@
-const PhotoCard = photo => {
+const PhotoCard = (photo) => {
     return `
         <article class="photo-card card">
-            <img src="${photo.previewURL}" class="image" />
+            <div class="photo-container">
+                <img src="${photo.previewURL}" class="image" />
+            </div>
+            <div class="favorite-button-container">
+                <span class="favorite-button">${photo.isFavorite ? '🖤' : '🤍'}</span>
+            </div>
         </article>
     `;
 };

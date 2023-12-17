@@ -17,7 +17,8 @@ const API = {
               id: pixabayPhoto.id,
               previewURL: pixabayPhoto.previewURL,
               photoURL: pixabayPhoto.largeImageURL,
-              tags: pixabayPhoto.tags
+              tags: pixabayPhoto.tags,
+              isFavorite: false
             });
           });
           return photos;

@@ -17,6 +17,7 @@ const App = {
     query: '',
     selectedTag: '',
     searchResults: [],
+    favorites: [],
     isShowingLoadMoreButton: false
   },
 
@@ -115,6 +116,8 @@ const App = {
     this.state.searchResults.forEach((photoObject) => {
       let photoCard = PhotoCard(photoObject);
       photosSection.innerHTML += photoCard;
+      // TODO: Add an event listener to the photo card's favorite button and onclick add it to favorites
+      // TODO: Check if this photo object is favorited using our `this.state.favorites` array.
     });
 
     if (this.state.searchResults.length > 0) {

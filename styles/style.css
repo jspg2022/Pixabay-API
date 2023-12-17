@@ -71,8 +71,11 @@ p {
   border: 1px solid #ccc;
   border-radius: 5px;
   overflow: hidden;
-  cursor: pointer;
   transition: transform 0.3s ease;
+}
+
+.card .photo-container {
+  cursor: pointer;
 }
 
 .card:hover {
@@ -141,6 +144,16 @@ p {
 
 .favorites-container .image {
   height: 150px; /* Adjust the height of the images */
+}
+
+.card .favorite-button-container {
+  text-align: right;
+  background-color: gray;
+  padding: 0.5rem 1.5rem;
+}
+
+.card .favorite-button-container .favorite-button {
+  cursor: pointer;
 }
 
 /* Responsive Styles */
