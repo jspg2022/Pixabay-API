@@ -20,12 +20,6 @@ const App = {
     favorites: [],
     isShowingLoadMoreButton: false,
   },
-  // // ----- add ????? ----------------------------
-  // states: {
-  //   favoritesState: () => {
-  //     return this.state.favorites;
-  //   },
-  // },
 
   selectors: {
     app: () => {
@@ -68,22 +62,29 @@ const App = {
       const searchFieldValue = searchField?.value;
 
       if (searchFieldValue.length == 0) {
-        // TODO: Show error and return
+        // TODO: Show error border in search field
         alert('Search value cannot be empty');
         return;
       } else {
-        // TODO: Remove error
+        // TODO: Remove error border from search field
       }
 
       const tagSelector = document.getElementById('tag-selector');
       const tagSelectorValue = tagSelector?.value;
 
       if (tagSelectorValue.length == 0) {
-        // TODO: Show error and return
+        // TODO: Show error border in tag selector
         alert('Tag value cannot be empty');
         return;
       } else {
-        // TODO: Remove error
+        // TODO: Remove error border from tag selector
+      }
+
+      if (this.state.query != searchFieldValue || this.state.selectedTag != tagSelectorValue) {
+        // This is a new search
+        this.state.query = searchFieldValue;
+        this.state.selectedTag = tagSelectorValue;
+        this.resetSearchResults();
       }
 
       this.searchAction({
@@ -98,13 +99,6 @@ const App = {
   // App methods/functions
 
   async searchAction({ query, tag, currentPage, itemsPerPage }) {
-    if (this.state.query != query || this.state.selectedTag != tag) {
-      // This is a new search
-      this.state.query = query;
-      this.state.selectedTag = tag;
-      this.resetSearchResults();
-    }
-
     const searchResults = await API.searchPhotos({
       query,
       tag,
@@ -114,7 +108,7 @@ const App = {
 
     if (searchResults.lengh == 0) {
       this.state.searchResults = [];
-      // TODO: Show empty state in UI
+      // TODO: REUT! Show empty state in the UI (NO SEARCH RESULTS FOUND)
       return;
     }
 
@@ -128,42 +122,55 @@ const App = {
     let photosSection = this.selectors.photosSection();
 
     this.state.searchResults.forEach((photoObject) => {
+      // 1. Create a String representation of the PhotoCard HTML
       let photoCard = PhotoCard(photoObject);
-      photosSection.innerHTML += photoCard;
-      // TODO: Add an event listener to the photo card's favorite button and onclick add it to favorites
-      // TODO: Check if this photo object is favorited using our `this.state.favorites` array.
 
-      // add ------------------------------
-      const addFavouritesAction = document.getElementById('favorite-button');
-      addFavouritesAction.addEventListener('click', (event) => {
-        event.preventDefault();
-        const photoId = photoObject.id;
-        const isAlreadyFavorited = this.state.favorites.find(
-          (favorite) => favorite.id === photoId
-        );
-        isAlreadyFavorited
-          ? (this.state.favorites = this.state.favorites.filter(
-              (favorite) => favorite.id !== photoId
-            ))
-          : this.state.favorites.push(photoObject);
-        console.log(isAlreadyFavorited, 77);
-        console.log(this.state.favorites);
-      });
+      // 2. Create a new HTMLElement to store our PhotoCard HTML inside of
+      let photoCardElement = document.createElement('div');
+
+      // 3. Inject the PhotoCard HTML String into the HTMLElement
+      photoCardElement.innerHTML = photoCard;
+
+      // 4. Append the new PhotoCard HTMLElement into the PhotosSection HTML
+      photosSection?.appendChild(photoCardElement);
+
+      // 5. Get a reference to our favorites state
+      let favorites = this.state.favorites;
+
+      // 6. Check if this Photo is already favorited
+      const isAlreadyFavorited = favorites.find((favorite) => favorite.id === photoObject.id);
+
+      // 7. Create a reference to our new favorite button
+      const addToFavoritesButton = photoCardElement.getElementsByClassName('favorite-button')[0];
+
+      // 8. Check if the favorite button exsits
+      if (addToFavoritesButton != undefined) {
+
+        // 9. Check if it is already favorited (from our favorites state)
+        if (isAlreadyFavorited) {
+          addToFavoritesButton.innerHTML = '🖤';
+        }
+
+        // 10. Add a click event listener to this favorite button
+        addToFavoritesButton.addEventListener('click', (event) => {
+          event.preventDefault();
+
+          if (isAlreadyFavorited) {
+            const photoObjectIndex = favorites.indexOf(photoObject);
+            favorites.splice(photoObjectIndex, 1);
+            addToFavoritesButton.innerHTML = '🤍';
+          } else {
+            favorites.push(photoObject);
+            addToFavoritesButton.innerHTML = '🖤';
+          }
+        });
+      }
     });
 
     if (this.state.searchResults.length > 0) {
       this.generateLoadMoreButtonIfNeeded();
     }
   },
-
-  // // add ---------------
-  // createEventListeners2() {
-  //   const addFavouritesAction = document.getElementById('favorite-button');
-  //   addFavouritesAction.addEventListener('click', (event) => {
-  //     event.preventDefault();
-  //     console.log(first);
-  //   });
-  // },
 
   resetSearchResults() {
     this.state.searchResults = [];
