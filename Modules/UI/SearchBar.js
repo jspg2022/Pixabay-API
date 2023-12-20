@@ -1,15 +1,17 @@
 const SearchBar = ({ tags }) => {
-    const generateTagsOptions = () => {
-        if (tags == undefined || tags.length == 0) { return; }
+  const generateTagsOptions = () => {
+    if (tags == undefined || tags.length == 0) {
+      return;
+    }
 
-        let optionsHTML = tags.map((tag) => {
-            return `<option value="${tag}">${tag}</option>`;
-        });
+    let optionsHTML = tags.map((tag) => {
+      return `<option value="${tag}">${tag}</option>`;
+    });
 
-        return optionsHTML;
-    };
+    return optionsHTML;
+  };
 
-    return `
+  return `
     <section id="search-bar-section" class="search-container">
         <select id="tag-selector" class="tagSelect">
             <option value="">Select a tag</option>
@@ -19,7 +21,7 @@ const SearchBar = ({ tags }) => {
         <button id="search-button" class="searchBtn btn">
             <i class="fa fa-search" aria-hidden="true"></i>
         </button>
-        <button class="favoriteBtn btn">Favorites images</button>
+        <button id="favorite-btn btn">Favorites images</button>
     </section>
     `;
 };

@@ -18,14 +18,28 @@ const App = {
     selectedTag: '',
     searchResults: [],
     favorites: [],
-    isShowingLoadMoreButton: false
+    isShowingLoadMoreButton: false,
   },
+  // // ----- add ????? ----------------------------
+  // states: {
+  //   favoritesState: () => {
+  //     return this.state.favorites;
+  //   },
+  // },
 
   selectors: {
-    app: () => { return document.getElementById('app') },
-    searchBar: () => { return document.getElementById('search-bar-section'); },
-    photosSection: () => { return document.getElementById('photos-section'); },
-    loadMoreContainer: () => { return document.getElementById('load-more-container'); }
+    app: () => {
+      return document.getElementById('app');
+    },
+    searchBar: () => {
+      return document.getElementById('search-bar-section');
+    },
+    photosSection: () => {
+      return document.getElementById('photos-section');
+    },
+    loadMoreContainer: () => {
+      return document.getElementById('load-more-container');
+    },
   },
 
   // Initializing the app
@@ -76,8 +90,8 @@ const App = {
         query: searchFieldValue,
         tag: tagSelectorValue,
         currentPage: this.state.currentPage,
-        itemsPerPage: this.state.itemsPerPage
-       });
+        itemsPerPage: this.state.itemsPerPage,
+      });
     });
   },
 
@@ -118,12 +132,38 @@ const App = {
       photosSection.innerHTML += photoCard;
       // TODO: Add an event listener to the photo card's favorite button and onclick add it to favorites
       // TODO: Check if this photo object is favorited using our `this.state.favorites` array.
+
+      // add ------------------------------
+      const addFavouritesAction = document.getElementById('favorite-button');
+      addFavouritesAction.addEventListener('click', (event) => {
+        event.preventDefault();
+        const photoId = photoObject.id;
+        const isAlreadyFavorited = this.state.favorites.find(
+          (favorite) => favorite.id === photoId
+        );
+        isAlreadyFavorited
+          ? (this.state.favorites = this.state.favorites.filter(
+              (favorite) => favorite.id !== photoId
+            ))
+          : this.state.favorites.push(photoObject);
+        console.log(isAlreadyFavorited, 77);
+        console.log(this.state.favorites);
+      });
     });
 
     if (this.state.searchResults.length > 0) {
       this.generateLoadMoreButtonIfNeeded();
     }
   },
+
+  // // add ---------------
+  // createEventListeners2() {
+  //   const addFavouritesAction = document.getElementById('favorite-button');
+  //   addFavouritesAction.addEventListener('click', (event) => {
+  //     event.preventDefault();
+  //     console.log(first);
+  //   });
+  // },
 
   resetSearchResults() {
     this.state.searchResults = [];
@@ -136,9 +176,11 @@ const App = {
     // the search button loses its event listener.
     // We should solve this issue later.
 
-    if (this.state.isShowingLoadMoreButton) { return; }
+    if (this.state.isShowingLoadMoreButton) {
+      return;
+    }
 
-    const container = this.selectors.loadMoreContainer()
+    const container = this.selectors.loadMoreContainer();
     container.innerHTML += `<button id="load-more-button" class="btn">Load More Photos</button>`;
 
     const loadMoreButton = document.getElementById('load-more-button');
@@ -149,12 +191,12 @@ const App = {
         query: this.state.query,
         tag: this.state.selectedTag,
         currentPage: this.state.currentPage,
-        itemsPerPage: this.state.itemsPerPage
+        itemsPerPage: this.state.itemsPerPage,
       });
     });
 
     this.state.isShowingLoadMoreButton = true;
-  }
+  },
 };
 
 App.intialize();

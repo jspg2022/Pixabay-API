@@ -152,7 +152,7 @@ p {
   padding: 0.5rem 1.5rem;
 }
 
-.card .favorite-button-container .favorite-button {
+.card .favorite-button-container #favorite-button {
   cursor: pointer;
 }
 
