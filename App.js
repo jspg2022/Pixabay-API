@@ -10,6 +10,8 @@ import PhotoCard from './Modules/UI/PhotoCard.js';
 import FavoriteSection from './Modules/UI/FavoriteSection.js';
 import Modal from './Modules/UI/Modal.js';
 
+// TODO: Open each photo card in search results in a modal window.
+
 const App = {
   state: {
     itemsPerPage: 20,
@@ -45,7 +47,6 @@ const App = {
       ${SearchBar({ tags: Constants.tags })}
       ${PhotosSection()}
       ${FavoriteSection()}
-      ${Modal()}
     `;
   },
 
@@ -63,24 +64,20 @@ const App = {
       const searchFieldValue = searchField?.value;
 
       if (searchFieldValue.length === 0) {
-        // TODO: Show error border in search field
         searchField.classList.add('input-filed-error');
         return;
       } else {
         searchField.classList.remove('input-filed-error');
-        // TODO: Remove error border from search field
       }
 
       const tagSelector = document.getElementById('tag-selector');
       const tagSelectorValue = tagSelector?.value;
 
       if (tagSelectorValue.length === 0) {
-        // TODO: Show error border in tag selector
         tagSelector.classList.add('input-filed-error');
         return;
       } else {
         tagSelector.classList.remove('input-filed-error');
-        // TODO: Remove error border from tag selector
       }
 
       if (
@@ -100,6 +97,35 @@ const App = {
         itemsPerPage: this.state.itemsPerPage,
       });
     });
+
+    const favoritesButton = document.getElementById('favorites-button');
+    favoritesButton?.addEventListener('click', (event) => {
+      event.preventDefault();
+
+      const favorites = this.state.favorites;
+      if (favorites.length === 0) {
+        alert("No favorites saved");
+        return;
+      }
+
+      let photoCards = favorites.map((photoObject) => {
+        return PhotoCard(photoObject);
+      });
+
+      const modal = Modal('My Favorites', photoCards);
+
+      const element = document.createElement("div");
+      element.innerHTML = modal;
+
+      this.selectors.app()?.appendChild(element);
+
+      const closeModalButton = document.querySelector('.close-modal-button');
+      closeModalButton?.addEventListener('click', (event) => {
+        event.preventDefault();
+        const modalContainer = document.querySelector('.modal-container');
+        modalContainer?.parentElement?.removeChild(modalContainer);
+      })
+    })
   },
 
   // App methods/functions
@@ -113,10 +139,8 @@ const App = {
     });
 
     if (searchResults === undefined) {
-      ////// changed to undefind instead 0 + added 'NO SEARCH RESULTS FOUND'
       this.state.searchResults = [];
       this.selectors.loadMoreContainer().innerHTML = 'NO SEARCH RESULTS FOUND';
-      // TODO: REUT! Show empty state in the UI (NO SEARCH RESULTS FOUND)
       return;
     }
 
@@ -164,6 +188,10 @@ const App = {
         // 10. Add a click event listener to this favorite button
         addToFavoritesButton.addEventListener('click', (event) => {
           event.preventDefault();
+
+          const isAlreadyFavorited = favorites.find(
+            (favorite) => favorite.id === photoObject.id
+          );
 
           if (isAlreadyFavorited) {
             const photoObjectIndex = favorites.indexOf(photoObject);

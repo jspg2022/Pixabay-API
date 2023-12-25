@@ -1,10 +1,15 @@
-const Modal = () => {
-  return `<div class="modal hidden">
-<button class="close-modal">&times;</button>
-<p class="modalContent"></p>
-</div>
-<div class="overlay hidden"></div>
-<button class="more-images-btn hidden btn">More Images</button>`;
+const Modal = (title, content) => {
+  return `
+    <div class="modal-container">
+      <div class="modal">
+        <button class="close-modal-button">&times;</button>
+        <div class="modal-content">
+          <h1 class="modal-title">${title}</h1>
+          ${content}
+        </div>
+      </div>
+    </div>
+  `;
 };
 
 export default Modal;

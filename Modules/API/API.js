@@ -28,10 +28,12 @@ const API = {
           return photos;
         } else {
           console.error(`API Error: Status ${response.status}`);
+          return undefined;
         }
       }
     } catch (error) {
       console.error('There was an error fetching the data:', error);
+      return undefined;
     }
   },
 };

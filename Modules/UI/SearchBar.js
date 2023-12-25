@@ -21,7 +21,7 @@ const SearchBar = ({ tags }) => {
         <button id="search-button" class="searchBtn btn">
             <i class="fa fa-search" aria-hidden="true"></i>
         </button>
-        <button id="favorite-btn btn">Favorites images</button>
+        <button id="favorites-button" class="btn">Favorites images</button>
     </section>
     `;
 };
