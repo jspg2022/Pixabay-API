@@ -19,6 +19,7 @@ const App = {
     searchResults: [],
     favorites: [],
     isShowingLoadMoreButton: false,
+    isInputFiledError: false,
   },
 
   selectors: {
@@ -61,26 +62,31 @@ const App = {
       const searchField = document.getElementById('search-field');
       const searchFieldValue = searchField?.value;
 
-      if (searchFieldValue.length == 0) {
+      if (searchFieldValue.length === 0) {
         // TODO: Show error border in search field
-        alert('Search value cannot be empty');
+        searchField.classList.add('input-filed-error');
         return;
       } else {
+        searchField.classList.remove('input-filed-error');
         // TODO: Remove error border from search field
       }
 
       const tagSelector = document.getElementById('tag-selector');
       const tagSelectorValue = tagSelector?.value;
 
-      if (tagSelectorValue.length == 0) {
+      if (tagSelectorValue.length === 0) {
         // TODO: Show error border in tag selector
-        alert('Tag value cannot be empty');
+        tagSelector.classList.add('input-filed-error');
         return;
       } else {
+        tagSelector.classList.remove('input-filed-error');
         // TODO: Remove error border from tag selector
       }
 
-      if (this.state.query != searchFieldValue || this.state.selectedTag != tagSelectorValue) {
+      if (
+        this.state.query != searchFieldValue ||
+        this.state.selectedTag != tagSelectorValue
+      ) {
         // This is a new search
         this.state.query = searchFieldValue;
         this.state.selectedTag = tagSelectorValue;
@@ -106,8 +112,10 @@ const App = {
       itemsPerPage,
     });
 
-    if (searchResults.lengh == 0) {
+    if (searchResults === undefined) {
+      ////// changed to undefind instead 0 + added 'NO SEARCH RESULTS FOUND'
       this.state.searchResults = [];
+      this.selectors.loadMoreContainer().innerHTML = 'NO SEARCH RESULTS FOUND';
       // TODO: REUT! Show empty state in the UI (NO SEARCH RESULTS FOUND)
       return;
     }
@@ -138,14 +146,16 @@ const App = {
       let favorites = this.state.favorites;
 
       // 6. Check if this Photo is already favorited
-      const isAlreadyFavorited = favorites.find((favorite) => favorite.id === photoObject.id);
+      const isAlreadyFavorited = favorites.find(
+        (favorite) => favorite.id === photoObject.id
+      );
 
       // 7. Create a reference to our new favorite button
-      const addToFavoritesButton = photoCardElement.getElementsByClassName('favorite-button')[0];
+      const addToFavoritesButton =
+        photoCardElement.getElementsByClassName('favorite-button')[0];
 
       // 8. Check if the favorite button exsits
       if (addToFavoritesButton != undefined) {
-
         // 9. Check if it is already favorited (from our favorites state)
         if (isAlreadyFavorited) {
           addToFavoritesButton.innerHTML = '🖤';
@@ -176,6 +186,9 @@ const App = {
     this.state.searchResults = [];
     this.state.currentPage = 1;
     this.selectors.photosSection().innerHTML = ``;
+    /////// added- reset load more conainer
+    this.selectors.loadMoreContainer().innerHTML = '';
+    this.state.isShowingLoadMoreButton = false;
   },
 
   generateLoadMoreButtonIfNeeded() {
