@@ -10,7 +10,7 @@ import PhotoCard from './Modules/UI/PhotoCard.js';
 import FavoriteSection from './Modules/UI/FavoriteSection.js';
 import Modal from './Modules/UI/Modal.js';
 
-// TODO: Open each photo card in search results in a modal window.
+// TODO: Open each photo card from search results in a modal with the photo's information.
 
 const App = {
   state: {
