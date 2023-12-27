@@ -12,16 +12,18 @@ const SearchBar = ({ tags }) => {
   };
 
   return `
-    <section id="search-bar-section" class="search-container">
-        <select id="tag-selector" class="tagSelect">
-            <option value="">Select a tag</option>
-            ${generateTagsOptions()}
+    <section id="search-bar-section">
+      <div class="container search-container">
+        <select id="tag-selector">
+        <option value="">Select a tag</option>
+          ${generateTagsOptions()}
         </select>
-        <input type="text" id="search-field" class="searchInput" placeholder="Search photo..." />
-        <button id="search-button" class="searchBtn btn">
+        <input type="text" id="search-field" class="searchInput" placeholder="Search Photo..." />
+        <button id="search-button" class="search-button button button-primary">
             <i class="fa fa-search" aria-hidden="true"></i>
+            Search
         </button>
-        <button id="favorites-button" class="btn">Favorites images</button>
+      </div>
     </section>
     `;
 };

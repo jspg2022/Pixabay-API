@@ -1,48 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Search photo</title>
-    <link rel="stylesheet" href="style.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixabay API - Photo Browser</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="styles/style.css" />
 
-    <script defer type="module" src="index.js"></script>
-  </head>
-
-  <body>
-    <div>
-      <h1>Image search</h1>
-      <h6>Using the pixabay API</h6>
-    </div>
-
-    <div class="search-container">
-      <select class="tagSelect">
-        <option value="">Select a tag</option>
-      </select>
-      <input type="text" class="searchInput" placeholder="Search photo..." />
-      <button class="searchBtn btn">
-        <i class="fa fa-search" aria-hidden="true"></i>
-      </button>
-
-      <button class="favoriteBtn btn">Favorites images</button>
-    </div>
-    <br />
-
-    <div id="favorites-container"></div>
-
-    <div class="imageContainer"></div>
-
-    <div class="modal hidden">
-      <button class="close-modal">&times;</button>
-      <p class="modalContent"></p>
-    </div>
-    <div class="overlay hidden"></div>
-    <button class="more-images-btn hidden btn">More Images</button>
-    <p class="endData"></p>
-  </body>
+    <script defer type="module" src="App.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+</body>
 </html>

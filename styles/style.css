@@ -1,61 +1,18 @@
-/* Global Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
-}
+@import 'reset.css';
+@import 'buttons.css';
+@import 'form-elements.css';
+
+@import 'header.css';
+@import 'search-bar.css';
+
 body {
   font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-h1 {
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
-}
-
-p {
-  font-size: 1rem;
-}
-
-.search-container {
-  text-align: center;
-  margin-top: 20px;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 20px;
-}
-
-/* Header Styles */
-.header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.tagSelect {
-  padding: 10px;
-  border: 1px solid #333;
-  border-radius: 5px;
-}
-.searchInput {
-  padding: 10px;
-  width: 60%;
-  border: 1px solid #333;
-  border-radius: 5px;
-}
-
-.btn {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
 /* Card Styles */

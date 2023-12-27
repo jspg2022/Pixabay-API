@@ -10,7 +10,19 @@ import PhotoCard from './Modules/UI/PhotoCard.js';
 import FavoriteSection from './Modules/UI/FavoriteSection.js';
 import Modal from './Modules/UI/Modal.js';
 
-// TODO: Open each photo card from search results in a modal with the photo's information.
+/*
+  Homework
+
+  1. Open each photo card from search results in a modal with the photo's information.
+  2. Tags bar feature - when clicking on a tag, you can display new search results based on that tag alone.
+  3. Optional - Desing the photo cards using CSS
+
+  Websites to learn from:
+
+  1. https://w3schools.org
+  2. https://flatuicolors.com
+*/
+
 
 const App = {
   state: {
@@ -229,7 +241,7 @@ const App = {
     }
 
     const container = this.selectors.loadMoreContainer();
-    container.innerHTML += `<button id="load-more-button" class="btn">Load More Photos</button>`;
+    container.innerHTML += `<button id="load-more-button" class="button">Load More Photos</button>`;
 
     const loadMoreButton = document.getElementById('load-more-button');
     loadMoreButton?.addEventListener('click', (event) => {
