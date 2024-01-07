@@ -10,6 +10,7 @@ import PhotoCard from './Modules/UI/PhotoCard.js';
 import FavoriteSection from './Modules/UI/FavoriteSection.js';
 import Modal from './Modules/UI/Modal.js';
 import PhotoDetailsCard from './Modules/UI/PhotoDetailsCard.js';
+import Categories from './Modules/UI/Categories.js';
 
 /*
   Homework
@@ -142,9 +143,46 @@ const App = {
       // });
       // ****************************************************************
     });
+
+    const categoriesArr = ['Cars', 'Animals', 'flowers'];
+    const categoriesSearchcontainer = document.getElementById(
+      'categories-container'
+    );
+    // BUG: createCategoriesButton WORKS ONLY FOR THE LAST CLASS
+    const createCategoriesButton = (categoriesArr) => {
+      const categoryButton = categoriesArr.forEach((category) => {
+        const categoriesSearchcontainer = document.getElementById(
+          'categories-container'
+        );
+        categoriesSearchcontainer.innerHTML += Categories(category);
+        const categoryButton = categoriesSearchcontainer.getElementsByClassName(
+          'category-search-button'
+        )[0];
+        categoryButton.addEventListener('click', (event) => {
+          event.preventDefault();
+          this.categoryButtonAction(category);
+          // const catgory = document.getElementById('categories-container');
+        });
+      });
+    };
+    createCategoriesButton(categoriesArr);
+
+    // categoriesButton(categoriesArr);
   },
 
   // App methods/functions
+
+  categoryButtonAction(category) {
+    this.state.query = category;
+    // this.state.tag = 'food';
+
+    this.searchAction({
+      query: this.state.query,
+      tag: this.state.selectedTag,
+      currentPage: this.state.currentPage,
+      itemsPerPage: this.state.itemsPerPage,
+    });
+  },
 
   async searchAction({ query, tag, currentPage, itemsPerPage }) {
     const searchResults = await API.searchPhotos({

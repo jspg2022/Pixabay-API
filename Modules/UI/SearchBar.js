@@ -24,6 +24,7 @@ const SearchBar = ({ tags }) => {
             Search
         </button>
       </div>
+      <div id="categories-container" >t</div>
     </section>
     `;
 };
