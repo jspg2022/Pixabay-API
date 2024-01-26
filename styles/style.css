@@ -41,7 +41,7 @@ body {
 
 .image {
   width: 100%;
-  height: 200px; /* Set a fixed height for uniformity */
+  /* height: 200px; Set a fixed height for uniformity */
   object-fit: cover; /* Ensure images maintain aspect ratio and cover the container */
   display: block;
 }
@@ -120,9 +120,17 @@ body {
 .input-filed-error {
   border: 4px solid red;
 }
+img {
+  height: 250px;
+  width: 100%;
 
+  object-fit: cover;
+}
+.photocard-container {
+  width: 100%;
+}
 /* Responsive Styles */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .searchInput {
     width: 100%;
   }
@@ -134,4 +142,4 @@ body {
   .modal {
     max-width: 90%;
   }
-}
+} */

@@ -203,6 +203,7 @@ const App = {
 
       // 2. Create a new HTMLElement to store our PhotoCard HTML inside of
       let photoCardElement = document.createElement('div');
+      photoCardElement.classList.add('photocard-container');
 
       // 3. Inject the PhotoCard HTML String into the HTMLElement
       photoCardElement.innerHTML = photoCard;

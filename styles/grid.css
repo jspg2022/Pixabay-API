@@ -1,20 +1,53 @@
 .grid-container {
   display: grid;
-  grid-template-columns: auto auto auto;
-  gap: 1rem;
-}
+  width: auto;
 
-/* .grid-item {
-} */
+  /* grid-template-columns: repeat(1, 1fr); */
+  /* gap: 16px; /* מרווח בין התמונות */
+  /* grid-template-columns: auto auto auto auto; */
+  gap: 1rem;
+  margin: 0.5rem auto;
+  padding: 0.5rem;
+  border-radius: 6px;
+  background-color: rgba(21, 1, 1, 0.063);
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(1, 200px, 1fr)
+  ); /* 200px רוחב קבוע, שאר המרווח נמלא ב- 1fr */
+  grid-template-rows: repeat(
+    auto-fit,
+    minmax(200px, 1fr)
+  ); /* 200px אורך קבוע, שאר המרווח נמלא ב- 1fr */
+  gap: 16px; /* מרווח בין התאים */
+
+  /* place-items: center; */
+}
+.grid-item {
+  /* position: relative;
+  overflow: hidden; */
+  height: 100%;
+  width: 100%;
+
+  object-fit: cover;
+}
 
 /* Small devices such as large phones (640px and up) */
 @media only screen and (min-width: 40em) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* Medium devices such as tablets (768px and up) */
 @media only screen and (min-width: 48em) {
+  .grid-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 /* Large devices such as laptops (1024px and up) */
 @media only screen and (min-width: 64em) {
+  .grid-container {
+    grid-template-columns: repeat(5, 1fr);
+  }
 }
