@@ -10,21 +10,20 @@ import PhotoCard from './Modules/UI/PhotoCard.js';
 import FavoriteSection from './Modules/UI/FavoriteSection.js';
 import Modal from './Modules/UI/Modal.js';
 import PhotoDetailsCard from './Modules/UI/PhotoDetailsCard.js';
-import Categories from './Modules/UI/Categories.js';
 
 /*
-  Homework
+Homework
 
-  1. Open each photo card from search results in a modal with the photo's information.
-  2. Tags bar feature - when clicking on a tag, you can display new search results based on that tag alone.
-  3. Optional - Desing the photo cards using CSS
+1. Open each photo card from search results in a modal with the photo's information.
+2. Tags bar feature - when clicking on a tag, you can display new search results based on that tag alone.
+3. Optional - Design the photo cards using CSS
 
- // enter to search + option to view the photo in begger size (its already in low pixel, check if nedeed to change to a good optimize in mobile?)
+// enter to search + option to view the photo in begger size (its already in low pixel, check if nedeed to change to a good optimize in mobile?)
 
-  Websites to learn from:
+Websites to learn from:
 
-  1. https://w3schools.org
-  2. https://flatuicolors.com
+1. https://w3schools.org
+2. https://flatuicolors.com
 */
 
 const App = {
@@ -36,7 +35,6 @@ const App = {
     searchResults: [],
     favorites: [],
     isShowingLoadMoreButton: false,
-    // isInputFiledError: false,
   },
 
   selectors: {
@@ -55,13 +53,15 @@ const App = {
   },
 
   // Initializing the app
-
   template() {
     return `
-      ${Header()}
-      ${SearchBar({ tags: Constants.tags })}
-      ${PhotosSection()}
-      ${FavoriteSection()}
+    ${Header()}
+    ${SearchBar({
+      tags: Constants.tags,
+      categoriesTags: Constants.categoriesTags,
+    })}
+    ${PhotosSection()}
+    ${FavoriteSection()}
     `;
   },
 
@@ -126,58 +126,32 @@ const App = {
       let photoCards = favorites.map((photoObject) => {
         return PhotoCard(photoObject);
       });
-      // ****************************************************************
+
       this.modalAction('My Favorites', photoCards);
-      // const modal = Modal('My Favorites', photoCards);
-
-      // const element = document.createElement('div');
-      // element.innerHTML = modal;
-
-      // this.selectors.app()?.appendChild(element);
-
-      // const closeModalButton = document.querySelector('.close-modal-button');
-      // closeModalButton?.addEventListener('click', (event) => {
-      //   event.preventDefault();
-      //   const modalContainer = document.querySelector('.modal-container');
-      //   modalContainer?.parentElement?.removeChild(modalContainer);
-      // });
-      // ****************************************************************
     });
 
-    const categoriesArr = ['Cars', 'Animals', 'flowers'];
-    const categoriesSearchcontainer = document.getElementById(
-      'categories-container'
-    );
-    // BUG: createCategoriesButton WORKS ONLY FOR THE LAST CLASS
-    const createCategoriesButton = (categoriesArr) => {
-      const categoryButton = categoriesArr.forEach((category) => {
-        const categoriesSearchcontainer = document.getElementById(
-          'categories-container'
-        );
-        categoriesSearchcontainer.innerHTML += Categories(category);
-        const categoryButton = categoriesSearchcontainer.getElementsByClassName(
-          'category-search-button'
-        )[0];
-        categoryButton.addEventListener('click', (event) => {
-          event.preventDefault();
-          this.categoryButtonAction(category);
-          // const catgory = document.getElementById('categories-container');
-        });
-      });
-    };
-    createCategoriesButton(categoriesArr);
+    const categories = Constants.categoriesTags;
 
-    // categoriesButton(categoriesArr);
+    for (const category of categories) {
+      const categoryButton = document.getElementById(
+        `${category}-search-button`
+      );
+
+      categoryButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        this.categoryButtonAction(category);
+      });
+      console.log(categoryButton);
+    }
   },
 
   // App methods/functions
-
   categoryButtonAction(category) {
-    this.state.query = category;
-    // this.state.tag = 'food';
+    this.resetSearchResults();
+    this.state.selectedTag = category;
 
     this.searchAction({
-      query: this.state.query,
+      query: '',
       tag: this.state.selectedTag,
       currentPage: this.state.currentPage,
       itemsPerPage: this.state.itemsPerPage,
@@ -219,6 +193,7 @@ const App = {
     });
   },
   // ****************************************************************
+
   updateSearchResultsUI() {
     let photosSection = this.selectors.photosSection();
 
@@ -294,16 +269,11 @@ const App = {
     this.state.searchResults = [];
     this.state.currentPage = 1;
     this.selectors.photosSection().innerHTML = ``;
-    /////// added- reset load more conainer
     this.selectors.loadMoreContainer().innerHTML = '';
     this.state.isShowingLoadMoreButton = false;
   },
 
   generateLoadMoreButtonIfNeeded() {
-    // NOTE: There's a bug - when adding the load more button to the Search Bar section,
-    // the search button loses its event listener.
-    // We should solve this issue later.
-
     if (this.state.isShowingLoadMoreButton) {
       return;
     }

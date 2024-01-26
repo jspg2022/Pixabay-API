@@ -1,8 +1,9 @@
 const PhotosSection = () => {
-    return `
-    <section id="photos-section" class="imageContainer"></section>
+  return `
+  <div class="container">
+    <section id="photos-section" class="grid-container"></section>
     <div id="load-more-container"></div>
-    `;
+   </div> `;
 };
 
 export default PhotosSection;

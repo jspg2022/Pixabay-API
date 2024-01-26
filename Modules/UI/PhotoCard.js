@@ -1,6 +1,6 @@
 const PhotoCard = (photoObject) => {
   return `
-        <article class="photo-card card">
+        <article class="photo-card card grid-item">
             <div class="photo-container">
                 <img src="${photoObject.previewURL}" class="image" />
             </div>

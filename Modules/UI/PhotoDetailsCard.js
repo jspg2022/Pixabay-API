@@ -4,7 +4,7 @@ const PhotoDetailsCard = (photoObject) => {
   <article class="photo-details">
   <div class="photo-details-container">
     <h1>${photoObject.tags}</h1>
-    <p>${photoObject.photoURL}</p>
+    <img src="${photoObject.photoURL}" alt="${photoObject.tags}"/>
   </div>
   <div class="favorite-button-container">
   </div>

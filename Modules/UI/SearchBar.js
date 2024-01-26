@@ -1,4 +1,6 @@
-const SearchBar = ({ tags }) => {
+import Categories from './Categories.js';
+
+const SearchBar = ({ tags, categoriesTags }) => {
   const generateTagsOptions = () => {
     if (tags == undefined || tags.length == 0) {
       return;
@@ -10,6 +12,16 @@ const SearchBar = ({ tags }) => {
 
     return optionsHTML;
   };
+
+  const generateCategoriesButtons = () =>
+    categoriesTags.map(Categories).join('');
+
+  // const generateCategoriesButtons = () => {
+  //   let buttonsHTML = categoriesTags.map((tag) => {
+  //     return Categories(tag);
+  //   });
+  //   return buttonsHTML;
+  // };
 
   return `
     <section id="search-bar-section">
@@ -24,7 +36,7 @@ const SearchBar = ({ tags }) => {
             Search
         </button>
       </div>
-      <div id="categories-container" >t</div>
+      <div id="categories-container">${generateCategoriesButtons()}</div>
     </section>
     `;
 };

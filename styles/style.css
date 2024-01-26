@@ -1,4 +1,5 @@
 @import 'reset.css';
+@import 'grid.css';
 @import 'buttons.css';
 @import 'form-elements.css';
 
@@ -24,7 +25,6 @@ body {
 }
 
 .card {
-  width: 480px;
   border: 1px solid #ccc;
   border-radius: 5px;
   overflow: hidden;
