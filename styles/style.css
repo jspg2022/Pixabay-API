@@ -2,6 +2,7 @@
 @import 'grid.css';
 @import 'buttons.css';
 @import 'form-elements.css';
+@import 'modal.css';
 
 @import 'header.css';
 @import 'search-bar.css';
@@ -47,49 +48,6 @@ body {
 }
 
 /* Modal Styles */
-
-.modal-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-}
-
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  border-radius: 5px;
-  padding: 40px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-  max-width: 50%;
-  max-height: 80%;
-  z-index: 1000;
-  overflow-y: scroll;
-}
-
-.hidden {
-  display: none; /* Use this class to hide elements */
-}
-
-.close-modal-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  font-size: 1.2em;
-  color: #333;
-  border: none;
-  border-radius: 100%;
-  background-color: #e0e0e0;
-  width: 24px;
-  height: 24px;
-}
 
 #favorites-container {
   display: none;

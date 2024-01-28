@@ -127,7 +127,7 @@ const App = {
         return PhotoCard(photoObject);
       });
 
-      this.modalAction('My Favorites', photoCards);
+      this.modalAction('My Favorites', photoCards.join(''));
     });
 
     const categories = Constants.categoriesTags;
