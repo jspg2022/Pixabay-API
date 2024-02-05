@@ -1,54 +1,54 @@
 #header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #6c5ce7;
-    box-shadow: 0px 3px 16px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #6c5ce7;
+  box-shadow: 0px 3px 16px rgba(0, 0, 0, 0.3);
 }
 
 #header .container {
-    padding-top: 0.8rem;
-    padding-bottom: 0.8rem;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
 }
 
 #header .logo-container {
-    display: inline-block;
-    background-color: #dfe6e9;
-    padding: 0.8rem;
-    border-radius: 6px;
+  display: inline-block;
+  background-color: #dfe6e9;
+  padding: 0.8rem;
+  border-radius: 6px;
 }
 
 #header .buttons-container {
-    display: inline-block;
+  display: inline-block;
 }
 
 #header .title {
-    display: inline-block;
-    font-size: 1.1em;
-    font-weight: bold;
-    padding-right: 0.4rem;
-    vertical-align: middle;
-    color: #2d3436;
+  display: inline-block;
+  font-size: 1.1em;
+  font-weight: bold;
+  padding-right: 0.4rem;
+  vertical-align: middle;
+  color: #2d3436;
 }
 
 #header .slogan {
-    display: inline-block;
-    background-color: #6c5ce7;
-    color: #fff;
-    padding: 0.4rem;
-    border-radius: 6px;
-    font-size: 0.8em;
-    vertical-align: middle;
+  display: inline-block;
+  background-color: #6c5ce7;
+  color: #fff;
+  padding: 0.4rem;
+  border-radius: 6px;
+  font-size: 0.8em;
+  vertical-align: middle;
 }
 
 .header-spacer {
-    height: 77px;
+  height: 77px;
 }
 
 @media (max-width: 425px) {
-    #header .logo-container {
-        width: 100%;
-        text-align: center;
-    }
+  #header .logo-container {
+    width: 100%;
+    text-align: center;
+  }
 }

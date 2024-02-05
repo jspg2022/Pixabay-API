@@ -67,6 +67,12 @@ const App = {
 
   intialize() {
     this.selectors.app().innerHTML = this.template();
+    this.searchAction({
+      query: '',
+      tag: '',
+      currentPage: this.state.currentPage,
+      itemsPerPage: this.state.itemsPerPage,
+    });
     this.createEventListeners();
   },
 
@@ -127,7 +133,7 @@ const App = {
         return PhotoCard(photoObject);
       });
 
-      this.modalAction('My Favorites', photoCards.join(''));
+      this.modalAction('My Favorites:', photoCards.join(''));
     });
 
     const categories = Constants.categoriesTags;
